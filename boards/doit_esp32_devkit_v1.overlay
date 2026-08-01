@@ -1,0 +1,34 @@
+&i2c0 {
+    
+    left_sensor: left_st_vl53l0x@32{
+        compatible = "st,vl53l0x";
+        status = "okay";
+        reg = < 0x32 >;
+        xshut-gpios = < &gpio0 26 (GPIO_ACTIVE_LOW)>;
+    };
+    right_sensor: right_st_vl53l0@33{
+        compatible = "st,vl53l0x";
+        status = "okay";
+        reg = < 0x33 >;
+        xshut-gpios = < &gpio0 27 (GPIO_ACTIVE_LOW)>;
+    };
+
+    volume_sensor: volume_st_vl53l0@34{
+        compatible = "st,vl53l0x";
+        status = "okay";
+        reg = < 0x34 >;
+        xshut-gpios = < &gpio0 25 (GPIO_ACTIVE_LOW)>;
+    };
+};
+
+&pinctrl {
+	i2c0_default: i2c0_default {
+		group1 {
+			pinmux = <I2C0_SDA_GPIO17>,
+				 <I2C0_SCL_GPIO16>;
+			bias-pull-up;
+			drive-open-drain;
+			output-high;
+		};
+	};
+};

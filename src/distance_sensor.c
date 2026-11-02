@@ -57,9 +57,6 @@ int get_distance(const struct device *sensor, struct sensor_value *sensorValue)
 		return ret;
 	}
 
-	// ret = sensor_channel_get(sensor, SENSOR_CHAN_PROX, sensorValue);
-	// printk("prox is %d\n", leftSensorValue.val1);
-
 	ret = sensor_channel_get(sensor, SENSOR_CHAN_DISTANCE, sensorValue);
 	return ret;
 }

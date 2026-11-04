@@ -4,7 +4,6 @@
 #include <zephyr/drivers/sensor/vl53l0x.h>
 #include "distance_sensor.h"
 
-
 int init_distance_sensor(const struct device *sensor1, const struct device *sensor2, const struct device *sensor3)
 {
 	int ret = 0;

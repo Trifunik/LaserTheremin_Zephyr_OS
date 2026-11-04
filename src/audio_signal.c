@@ -30,14 +30,14 @@ int config_audio(struct i2s_config *config, const struct device *dev_i2s, struct
     return ret;
 }
 
-void fill_variable_frequency_buf(int16_t *tx_block, float frequency,  float *current_phase)
+void fill_variable_frequency_buf(int16_t *tx_block, float volume, float frequency,  float *current_phase)
 {
     // How much the sine wave angle moves forward each frame
     float phase_increment = (2.0f * (float)M_PI * frequency) / (float)SAMPLE_RATE;
 
     for (int i = 0; i < FRAMES_PER_BLOCK; i++) {
         // Compute current sample value
-        int16_t sample_val = (int16_t)(AMPLITUDE * sinf(*current_phase));
+        int16_t sample_val = (int16_t)(AMPLITUDE * volume * sinf(*current_phase));
 
         tx_block[2 * i]     = sample_val; // Left Channel
         tx_block[2 * i + 1] = sample_val; // Right Channel
@@ -54,8 +54,6 @@ void fill_variable_frequency_buf(int16_t *tx_block, float frequency,  float *cur
 
 int setup_device(const struct device *dev_i2s, struct k_mem_slab *mem_slab, float *current_phase)
 {
-    printk("HIER 1 \n");
-
     int ret = 0;
     void *block1 = NULL;
     void *block2 = NULL;
@@ -66,8 +64,8 @@ int setup_device(const struct device *dev_i2s, struct k_mem_slab *mem_slab, floa
     ret = k_mem_slab_alloc(mem_slab, &block2, K_NO_WAIT);
     if (ret < 0) return ret;
 
-    fill_variable_frequency_buf((int16_t *)block1, 440.0, current_phase );
-    fill_variable_frequency_buf((int16_t *)block2, 440.0, current_phase );
+    fill_variable_frequency_buf((int16_t *)block1, 0.4, 440.0, current_phase );
+    fill_variable_frequency_buf((int16_t *)block2, 0.4, 440.0, current_phase );
 
     ret = i2s_write(dev_i2s, block1, BLOCK_SIZE);
     ret = i2s_write(dev_i2s, block2, BLOCK_SIZE);

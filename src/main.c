@@ -49,6 +49,10 @@ float filter_frequency(float current_value, float new_value)
     return (current_value + new_value * 2200.0f) / 2.0f;
 }
 
+/**
+ * Measurement function prepared for thread
+ * Volume is not filtered on purpose and has also a simple conversion into an amplitude value.
+ */
 void measurement(void)
 {
 	while (1) {

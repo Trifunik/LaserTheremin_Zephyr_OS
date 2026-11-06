@@ -9,7 +9,6 @@
 	};
 };
 
-
 &i2c0 {
 	sda-gpios = <&gpio0 17 GPIO_OPEN_DRAIN>;
     scl-gpios = <&gpio0 16 GPIO_OPEN_DRAIN>;

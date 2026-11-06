@@ -25,7 +25,6 @@ struct sensor_value right_sensor_value;
 struct sensor_value volume_sensor_value;
 
 /* --- Global variables for audio --- */
-
 static float left_current_phase = 0.0;
 static float right_current_phase = 0.0;
 
@@ -39,7 +38,9 @@ static volatile float left_current_frequency = 440.0;
 static volatile float right_current_frequency = 440.0;
 static volatile float current_volume = 0.4;
 
-
+/**
+ * Simple filtering of the distance and converting into a frequency value
+ */
 float filter_frequency(float current_value, float new_value)
 {
     if (new_value > MAX_DISTANCE_M) {
